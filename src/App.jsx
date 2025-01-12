@@ -98,8 +98,11 @@ function HomeScreen() {
   );
 }
 
+import { VoiceRecorder } from './modules/voiceRecording/VoiceRecorder';
+
 function VoiceRecorderScreen() {
-  const [isRecording, setIsRecording] = React.useState(false);
+  return <VoiceRecorder />;
+}
 
   const clearAll = async () => {
     if (window.confirm('Are you sure you want to delete all transcriptions and tasks? This cannot be undone.')) {
