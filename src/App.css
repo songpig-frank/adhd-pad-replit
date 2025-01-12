@@ -659,6 +659,7 @@ audio {
   overflow-wrap: break-word;
   text-align-last: center;
   white-space: pre-wrap;
+  quotes: none;
 }
 
 .task-subtitle-container .task-title {
