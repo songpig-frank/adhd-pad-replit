@@ -80,11 +80,14 @@ export const VoiceRecorder = () => {
   };
 
   const handleSubmitTask = async () => {
-    // Include julianId in the task data
+    const julianId = generateJulianId();
+    // Clean the title and description before saving
+    const cleanTitle = (title || '').replace(/[*]/g, '').trim();
+    const cleanDescription = (description || '').replace(/[*]/g, '').trim();
     const taskData = {
-      julianId: transcribedText.julianId,
-      title: title.replace(/\*/g, ''),
-      description: description.replace(/\*/g, ''),
+      julianId,
+      title: cleanTitle,
+      description: cleanDescription,
       text: transcribedText,
       completed: false,
       createdAt: new Date().toLocaleString()
