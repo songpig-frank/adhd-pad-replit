@@ -686,12 +686,13 @@ audio {
   overflow-y: auto;
   overflow-x: auto;
   text-align: justify;
-  padding: 8px;
+  padding: 8px 16px;
   white-space: normal;
   word-wrap: break-word;
   scroll-behavior: smooth;
   text-align-last: left;
-  hyphens: auto;
+  word-spacing: -0.05em;
+  letter-spacing: 0.01em;
 }
 
 .task-description.expanded {
