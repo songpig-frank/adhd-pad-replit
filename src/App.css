@@ -690,6 +690,9 @@ audio {
   white-space: normal;
   word-wrap: break-word;
   scroll-behavior: smooth;
+  text-align-last: justify;
+  -moz-text-align-last: justify;
+  -webkit-text-align-last: justify;
 }
 
 .task-description.expanded {
