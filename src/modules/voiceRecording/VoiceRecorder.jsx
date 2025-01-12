@@ -52,7 +52,7 @@ export const VoiceRecorder = () => {
     return `${year}${day.toString().padStart(3, '0')}-${time}-${random}`;
   };
 
-  const stopRecording = () => {
+  const stopRecording = async () => {
     if (mediaRecorder.current && isRecording) {
       const julianId = generateJulianId();
       mediaRecorder.current.stop();
@@ -60,7 +60,13 @@ export const VoiceRecorder = () => {
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
       console.log('Recording stopped');
       console.log('Generated Julian ID:', julianId);
-      return julianId;
+      //Added save functionality here
+      const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+      const filename = `${julianId}.wav`;
+      const url = URL.createObjectURL(audioBlob);
+      //Simulate saving the file.  Replace with actual save logic.
+      console.log('Saving audio with Julian ID:', julianId, 'and filename:', filename);
+      setAudioURL(url);
     }
   };
 
