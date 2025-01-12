@@ -55,15 +55,13 @@ export const VoiceRecorder = () => {
 
   const stopRecording = () => {
     if (mediaRecorder.current && isRecording) {
+      const julianId = generateJulianId();
       mediaRecorder.current.stop();
       setIsRecording(false);
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
       console.log('Recording stopped');
-      
-      // Add Julian ID to the recording data
-      const julianId = generateJulianId();
       console.log('Generated Julian ID:', julianId);
-      // You can store this ID with the recording data
+      return julianId;
     }
   };
 

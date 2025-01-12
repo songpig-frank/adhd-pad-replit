@@ -368,7 +368,7 @@ audio {
 }
 
 .urgent-button {
-  display: none; /*Removed button*/
+  display: none;
   padding: 5px 10px;
   margin-right: 10px;
   border: 1px solid #ff4444;
@@ -662,6 +662,15 @@ audio {
   quotes: none;
 }
 
+.task-title::before,
+.task-title::after {
+  content: none !important;
+}
+
+.task-title * {
+  content: none !important;
+}
+
 .task-subtitle-container .task-title {
   display: flex;
   justify-content: center;
@@ -754,7 +763,7 @@ audio {
 
 
 .task-actions {
-  display: none; /*Removed button*/
+  display: none;
   align-items: center;
   gap: 8px;
   margin-top: 10px;
@@ -856,7 +865,7 @@ audio {
 }
 
 .delete-button {
-  display: none; /*Removed button*/
+  display: none;
   background: #ff4444;
   color: white;
   border: none;
