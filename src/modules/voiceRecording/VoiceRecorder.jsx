@@ -84,6 +84,9 @@ export const VoiceRecorder = () => {
     // Clean the title and description before saving
     const cleanTitle = (title || '').replace(/[*]/g, '').trim();
     const cleanDescription = (description || '').replace(/[*]/g, '').trim();
+    console.log('Saving task with Julian ID:', julianId);
+    console.log('Original title:', title);
+    console.log('Cleaned title:', cleanTitle);
     const taskData = {
       julianId,
       title: cleanTitle,
