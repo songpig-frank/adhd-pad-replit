@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './VoiceRecorder.css';
-import { db } from './firebase'; // Assuming firebase setup
+import { db } from '../../firebase'; // Assuming firebase setup
 import { collection, addDoc } from "firebase/firestore";
 
 
