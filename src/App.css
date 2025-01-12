@@ -649,13 +649,12 @@ audio {
   text-align: center;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 12px 20px;
+  display: block;
   min-height: 40px;
   line-height: 1.4;
-  text-align-last: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .task-description {
@@ -693,15 +692,13 @@ audio {
   margin-bottom: 12px;
   max-height: 80px;
   overflow-y: auto;
-  overflow-x: auto;
+  overflow-x: hidden;
   text-align: justify;
   padding: 8px 16px;
   white-space: normal;
   word-wrap: break-word;
-  scroll-behavior: smooth;
-  text-align-last: left;
-  word-spacing: -0.05em;
-  letter-spacing: 0.01em;
+  hyphens: auto;
+  text-justify: inter-word;
 }
 
 .task-description.expanded {
