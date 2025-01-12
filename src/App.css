@@ -609,15 +609,26 @@ audio {
 
 .task-subtitle-container {
   background: #fff8dc;
-  padding: 8px;
+  padding: 12px;
   border-radius: 4px;
   margin: 8px 0;
   width: 100%;
   border: 1px solid #ffd700;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
-  align-items: center;
-  min-height: 80px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #333;
+}
+
+.task-description {
+  font-size: 0.9em;
+  color: #666;
 }
 
 .task-subtitle {

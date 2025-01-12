@@ -603,19 +603,8 @@ function TaskListScreen() {
               </div>
               <div className="task-content">
                 <div className="task-subtitle-container">
-                  <textarea
-                    className="task-subtitle"
-                    value={task.subtitle || ''}
-                    placeholder="Enter subtitle..."
-                    onChange={async (e) => {
-                      const newSubtitle = e.target.value;
-                      const taskRef = doc(db, 'tasks', task.id);
-                      await updateDoc(taskRef, { subtitle: newSubtitle });
-                      setTasks(tasks.map(t => 
-                        t.id === task.id ? { ...t, subtitle: newSubtitle } : t
-                      ));
-                    }}
-                  />
+                  <div className="task-title">{task.title}</div>
+                  <div className="task-description">{task.description}</div>
                 </div>
                 <div className="task-description">{task.description}</div>
               </div>
