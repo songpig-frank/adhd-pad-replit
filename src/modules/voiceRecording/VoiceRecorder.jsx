@@ -39,12 +39,31 @@ export const VoiceRecorder = () => {
     }
   };
 
+  const generateJulianId = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const start = new Date(year, 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const day = Math.floor(diff / oneDay);
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    const time = now.getHours().toString().padStart(2, '0') + 
+                 now.getMinutes().toString().padStart(2, '0') +
+                 now.getSeconds().toString().padStart(2, '0');
+    return `${year}${day.toString().padStart(3, '0')}-${time}-${random}`;
+  };
+
   const stopRecording = () => {
     if (mediaRecorder.current && isRecording) {
       mediaRecorder.current.stop();
       setIsRecording(false);
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
       console.log('Recording stopped');
+      
+      // Add Julian ID to the recording data
+      const julianId = generateJulianId();
+      console.log('Generated Julian ID:', julianId);
+      // You can store this ID with the recording data
     }
   };
 
