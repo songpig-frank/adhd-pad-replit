@@ -446,10 +446,11 @@ audio {
 .task-item .task-id {
   position: absolute;
   bottom: 12px;
-  right: 88px;
+  right: 100px;
   font-size: 0.8em;
   color: #666;
   z-index: 1;
+  margin-right: 8px;
 }
 
 .task-item.urgent {

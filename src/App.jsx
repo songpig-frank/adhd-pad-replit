@@ -246,6 +246,7 @@ function VoiceRecorderScreen() {
 
         const transcriptionsRef = collection(db, 'transcriptions');
         const docRef = await addDoc(transcriptionsRef, {
+          julianId: generateJulianId(),
           title,
           description,
           text: transcribedText,
