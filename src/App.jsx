@@ -456,7 +456,12 @@ function TaskListScreen() {
         const tasksList = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
-        }));
+        }))
+        .sort((a, b) => {
+          const dateA = new Date(a.createdAt);
+          const dateB = new Date(b.createdAt);
+          return dateB - dateA;
+        });
         setTasks(tasksList);
       } catch (error) {
         console.error("Error fetching tasks:", error);
