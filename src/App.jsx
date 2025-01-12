@@ -604,7 +604,6 @@ function TaskListScreen() {
               <div className="task-content">
                 <div className="task-subtitle-container">
                   <div className="task-title">{task.title}</div>
-                  <div className="task-description">{task.description}</div>
                 </div>
                 <div className="task-description">{task.description}</div>
               </div>

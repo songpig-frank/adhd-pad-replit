@@ -616,14 +616,16 @@ audio {
   border: 1px solid #ffd700;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
 }
 
 .task-title {
   font-size: 1.1em;
   font-weight: 600;
   color: #333;
+  text-align: center;
 }
 
 .task-description {
