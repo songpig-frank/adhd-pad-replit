@@ -650,11 +650,22 @@ audio {
   width: 100%;
   margin: 0 auto;
   padding: 12px 20px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 40px;
   line-height: 1.4;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-align-last: center;
+}
+
+.task-subtitle-container .task-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
 }
 
 .task-description {
