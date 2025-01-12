@@ -101,9 +101,6 @@ function HomeScreen() {
 import { VoiceRecorder } from './modules/voiceRecording/VoiceRecorder';
 
 function VoiceRecorderScreen() {
-  return <VoiceRecorder />;
-}
-
   const clearAll = async () => {
     if (window.confirm('Are you sure you want to delete all transcriptions and tasks? This cannot be undone.')) {
       try {
@@ -134,6 +131,7 @@ function VoiceRecorderScreen() {
   const [savedTranscriptions, setSavedTranscriptions] = React.useState([]);
   const [error, setError] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isRecording, setIsRecording] = React.useState(false);
   const [modalData, setModalData] = React.useState({ isOpen: false, title: '', summary: '', transcription: '' });
 
   React.useEffect(() => {
