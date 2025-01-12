@@ -487,8 +487,8 @@ function TaskListScreen() {
       try {
         setIsProcessing(true);
         const aiResults = await generateTitleAndSummary(newTask);
-        const title = aiResults.title || newTask.substring(0, 50);
-        const description = aiResults.summary || newTask;
+        const title = (aiResults.title || newTask.substring(0, 50)).replace(/\*/g, '').trim();
+        const description = (aiResults.summary || newTask).replace(/\*/g, '').trim();
 
         const taskRef = await addDoc(collection(db, 'tasks'), {
           julianId: generateJulianId(),

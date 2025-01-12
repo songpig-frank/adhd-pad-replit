@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import './VoiceRecorder.css';
 
@@ -13,7 +12,7 @@ export const VoiceRecorder = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       console.log('Microphone access granted');
-      
+
       mediaRecorder.current = new MediaRecorder(stream);
       audioChunks.current = [];
 
