@@ -690,7 +690,8 @@ audio {
   white-space: normal;
   word-wrap: break-word;
   scroll-behavior: smooth;
-  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
 }
 
 .task-description.expanded {
