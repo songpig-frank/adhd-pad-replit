@@ -1,10 +1,16 @@
 import React, { useState, useRef } from 'react';
 import './VoiceRecorder.css';
+import { db } from './firebase'; // Assuming firebase setup
+import { collection, addDoc } from "firebase/firestore";
+
 
 export const VoiceRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState('');
   const [error, setError] = useState('');
+  const [transcribedText, setTranscribedText] = useState(''); // Added state for transcription
+  const [title, setTitle] = useState(''); // Added state for task title
+  const [description, setDescription] = useState(''); // Added state for task description
   const mediaRecorder = useRef(null);
   const audioChunks = useRef([]);
 
@@ -58,17 +64,47 @@ export const VoiceRecorder = () => {
       mediaRecorder.current.stop();
       setIsRecording(false);
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
-      console.log('Recording stopped');
-      console.log('Generated Julian ID:', julianId);
-      //Added save functionality here
       const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
       const filename = `${julianId}.wav`;
       const url = URL.createObjectURL(audioBlob);
-      //Simulate saving the file.  Replace with actual save logic.
       console.log('Saving audio with Julian ID:', julianId, 'and filename:', filename);
       setAudioURL(url);
+
+      // Store the julianId for later use
+      setTranscribedText(prev => ({
+        ...prev,
+        julianId: julianId,
+        audioURL: url //add audio url to state
+      }));
     }
   };
+
+  const handleSubmitTask = async () => {
+    // Include julianId in the task data
+    const taskData = {
+      julianId: transcribedText.julianId,
+      title: title.replace(/\*/g, ''),
+      description: description.replace(/\*/g, ''),
+      text: transcribedText,
+      completed: false,
+      createdAt: new Date().toLocaleString()
+    };
+
+    // Add to tasks collection
+    await addDoc(collection(db, 'tasks'), taskData);
+
+    setTranscribedText('');
+    setAudioURL('');
+    setTitle('');
+    setDescription('');
+
+    if (isRecording) {
+      stopRecording();
+    }
+
+    alert("Task created successfully!");
+  };
+
 
   return (
     <div className="voice-recorder">
@@ -85,6 +121,9 @@ export const VoiceRecorder = () => {
             <audio controls src={audioURL} />
           </div>
         )}
+        <input type="text" placeholder="Task Title" value={title} onChange={e => setTitle(e.target.value)} />
+        <textarea placeholder="Task Description" value={description} onChange={e => setDescription(e.target.value)} />
+        <button onClick={handleSubmitTask}>Submit Task</button> {/* Added Submit Task button */}
       </div>
     </div>
   );
