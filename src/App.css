@@ -709,10 +709,6 @@ audio {
   white-space: normal;
   word-wrap: break-word;
   text-justify: inter-word;
-  text-align-last: left;
-  hyphens: none;
-  column-width: auto;
-  column-count: 1;
 }
 
 .task-description.expanded {
@@ -925,6 +921,7 @@ audio {
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -935,10 +932,15 @@ audio {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 4px;
+  border: 2px solid #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 .back-button {
