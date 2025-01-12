@@ -708,8 +708,11 @@ audio {
   padding: 8px 16px;
   white-space: normal;
   word-wrap: break-word;
-  hyphens: auto;
   text-justify: inter-word;
+  text-align-last: left;
+  hyphens: none;
+  column-width: auto;
+  column-count: 1;
 }
 
 .task-description.expanded {
