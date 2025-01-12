@@ -495,6 +495,8 @@ function TaskListScreen() {
         setNewTask('');
       } catch (error) {
         console.error("Error adding task:", error);
+      } finally {
+        setIsProcessing(false);
       }
     }
   };
@@ -603,7 +605,7 @@ function TaskListScreen() {
                 <div className="task-subtitle-container">
                   <textarea
                     className="task-subtitle"
-                    value={task.title || ''}
+                    value={task.subtitle || ''}
                     placeholder="Enter subtitle..."
                     onChange={async (e) => {
                       const newSubtitle = e.target.value;
@@ -619,7 +621,7 @@ function TaskListScreen() {
               </div>
               <div className="task-content">
                 <div className="task-id">ID: {task.julianId}</div>
-                
+
                 {task.expanded && (
                   <>
                     <textarea
@@ -700,7 +702,7 @@ function TaskListScreen() {
                       const taskRef = doc(db, 'tasks', task.id);
                       await updateDoc(taskRef, { urgent: !task.urgent });
                       setTasks(tasks.map(t => 
-                        t.id === task.id ? { ...t, urgent: !t.urgent } : t
+                        t.id === task.id ? { ...t, urgent: !task.urgent } : t
                       ));
                     }} 
                     className={`urgent-button ${task.urgent ? 'active' : ''}`}
