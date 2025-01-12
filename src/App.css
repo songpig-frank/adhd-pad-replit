@@ -445,10 +445,11 @@ audio {
 
 .task-item .task-id {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  bottom: 12px;
+  left: 12px;
   font-size: 0.8em;
   color: #666;
+  z-index: 1;
 }
 
 .task-item.urgent {
