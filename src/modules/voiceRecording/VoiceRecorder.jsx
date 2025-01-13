@@ -127,7 +127,7 @@ export const VoiceRecorder = () => {
       const julianId = generateJulianId();
       const cleanTitle = (title || transcribedText.substring(0, 50) || 'New Task').replace(/[*]/g, '').trim();
       const cleanDescription = (description || transcribedText || '').replace(/[*]/g, '').trim();
-      
+
       const taskData = {
         julianId,
         title: cleanTitle,
