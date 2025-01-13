@@ -516,7 +516,7 @@ function TaskListScreen() {
     } catch (error) {
       alert(`Test Failed: ${error.message}`);
     }
-  });
+  };
 
   const addTask = async (e) => {
     e.preventDefault();
