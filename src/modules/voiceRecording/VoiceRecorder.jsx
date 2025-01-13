@@ -123,40 +123,46 @@ export const VoiceRecorder = () => {
   };
 
   const handleSubmitTask = async () => {
-    const julianId = generateJulianId();
-    // Clean the title and description before saving
-    const cleanTitle = (title || '').replace(/[*]/g, '').trim();
-    const cleanDescription = (description || '').replace(/[*]/g, '').trim();
-    console.log('Saving task with Julian ID:', julianId);
-    console.log('Original title:', title);
-    console.log('Cleaned title:', cleanTitle);
-    const taskData = {
-      julianId,
-      title: cleanTitle,
-      description: cleanDescription,
-      text: transcribedText,
-      completed: false,
-      createdAt: new Date().toLocaleString()
-    };
+    try {
+      const julianId = generateJulianId();
+      const cleanTitle = (title || transcribedText.substring(0, 50) || 'New Task').replace(/[*]/g, '').trim();
+      const cleanDescription = (description || transcribedText || '').replace(/[*]/g, '').trim();
+      
+      const taskData = {
+        julianId,
+        title: cleanTitle,
+        description: cleanDescription,
+        text: transcribedText,
+        completed: false,
+        createdAt: new Date().toLocaleString()
+      };
 
-    // Add to tasks collection
-    await addDoc(collection(db, 'tasks'), taskData);
+      // If we have audio and save is enabled
+      if (audioURL && saveAudio) {
+        const audioBlob = await fetch(audioURL).then(r => r.blob());
+        const storageRef = ref(storage, `audio/${julianId}.wav`);
+        await uploadBytes(storageRef, audioBlob);
+        const storedAudioURL = await getDownloadURL(storageRef);
+        taskData.audioUrl = storedAudioURL;
+      }
 
-    //Upload audio to Firebase Storage
-    const storageRef = ref(storage, `audio/${julianId}.wav`);
-    await uploadBytes(storageRef, audioBlob);
-    const audioURL = await getDownloadURL(storageRef);
+      // Add to tasks collection
+      await addDoc(collection(db, 'tasks'), taskData);
 
-    setTranscribedText('');
-    setAudioURL('');
-    setTitle('');
-    setDescription('');
+      setTranscribedText('');
+      setAudioURL('');
+      setTitle('');
+      setDescription('');
 
-    if (isRecording) {
-      stopRecording();
+      if (isRecording) {
+        stopRecording();
+      }
+
+      alert("Task created successfully!");
+    } catch (error) {
+      console.error('Error creating task:', error);
+      alert('Failed to create task: ' + error.message);
     }
-
-    alert("Task created successfully!");
   };
 
 
