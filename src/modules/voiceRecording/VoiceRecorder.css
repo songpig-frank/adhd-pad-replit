@@ -63,6 +63,9 @@
 .audio-player-container {
   width: 100%;
   margin: 15px 0;
+  min-height: 80px;
+  display: flex;
+  justify-content: center;
 }
 
 .audio-player {
