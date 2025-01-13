@@ -426,6 +426,26 @@ audio {
   position: relative;
 }
 
+.task-audio-container {
+  margin: 10px 0;
+  padding: 8px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-audio-player {
+  flex: 1;
+  height: 36px;
+}
+
+.audio-icon {
+  font-size: 18px;
+  color: #4CAF50;
+}
+
 .task-item.has-audio::before {
   content: '🔊';
   position: absolute;

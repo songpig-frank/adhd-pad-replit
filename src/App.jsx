@@ -7,7 +7,7 @@ import './App.css';
 
 function HomeScreen() {
   const [openAIStatus, setOpenAIStatus] = React.useState(null);
-  
+
   const generateJulianId = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -792,7 +792,7 @@ function TaskListScreen() {
           {filteredTasks.map(task => (
             <div 
               key={task.id} 
-              className={`task-item ${task.completed ? 'completed' : ''} ${task.urgent ? 'urgent' : ''} ${task.audioURL ? 'has-audio' : ''}`}
+              className={`task-item ${task.completed ? 'completed' : ''} ${task.urgent ? 'urgent' : ''} ${task.audioUrl ? 'has-audio' : ''}`}
               onMouseLeave={(e) => {
                 const descriptionElement = e.currentTarget.querySelector('.task-description');
                 if (descriptionElement) {
@@ -825,7 +825,7 @@ function TaskListScreen() {
                 </div>
                 {task.audioUrl && (
                   <div className="task-audio-container">
-                    <span className="audio-icon">🎵</span>
+                    <span className="audio-icon">🔊</span>
                     <audio controls src={task.audioUrl} className="task-audio-player" />
                   </div>
                 )}
