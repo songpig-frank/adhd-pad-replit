@@ -70,18 +70,16 @@ export const VoiceRecorder = () => {
       let audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
       if (saveAudio) {
         audioBlob = await compressAudio(audioBlob);
+        // Upload to Firebase Storage
+        const storageRef = ref(storage, `audio/${julianId}.wav`);
+        await uploadBytes(storageRef, audioBlob);
+        const audioURL = await getDownloadURL(storageRef);
+        setAudioURL(audioURL);
+      } else {
+        const url = URL.createObjectURL(audioBlob);
+        setAudioURL(url);
       }
-      const filename = `${julianId}.wav`;
-      const url = URL.createObjectURL(audioBlob);
-      console.log('Saving audio with Julian ID:', julianId, 'and filename:', filename);
-      setAudioURL(url);
-
-      // Store the julianId for later use
-      setTranscribedText(prev => ({
-        ...prev,
-        julianId: julianId,
-        audioURL: url //add audio url to state
-      }));
+      console.log('Saving audio with Julian ID:', julianId);
     }
   };
 
