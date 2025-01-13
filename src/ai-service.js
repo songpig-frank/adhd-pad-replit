@@ -1,4 +1,3 @@
-
 import { config } from './config';
 
 async function getDeepSeekTitle(text) {
@@ -27,14 +26,14 @@ async function getDeepSeekTitle(text) {
 
     const data = await response.json();
     const result = data.choices[0]?.message?.content || '';
-    
+
     const lines = result.split('\n').filter(p => p.trim());
     const title = (lines.find(l => l.toLowerCase().includes('title:'))?.replace('Title:', '').trim() 
       || text.split('.')[0].trim() 
-      || 'Untitled').replace(/^\*+\s*/, '');
+      || 'Untitled').replace(/[*"]/g, '');
     const summary = (lines.find(l => l.toLowerCase().includes('summary:'))?.replace('Summary:', '').trim() 
       || text.substring(0, 100).trim() 
-      || 'No summary available').replace(/^\*+\s*/, '');
+      || 'No summary available').replace(/[*"]/g, '');
 
     return {
       title,
@@ -73,7 +72,7 @@ async function getOpenAITitle(text) {
 
   const data = await response.json();
   const result = data.choices[0]?.message?.content || '';
-  
+
   // Extract title and summary with fallbacks
   const lines = result.split('\n').filter(p => p.trim());
   const title = lines.find(l => l.toLowerCase().includes('title:'))?.replace('Title:', '').trim() 
