@@ -97,7 +97,86 @@ function HomeScreen() {
             `Title: ${aiResult?.title || 'No title generated'}\n` +
             `Summary: ${aiResult?.summary || 'No summary generated'}\n`;
 
-          alert(results);
+          const modalDiv = document.createElement('div');
+          modalDiv.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+          `;
+
+          const modalContent = document.createElement('div');
+          modalContent.style.cssText = `
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+          `;
+
+          const pre = document.createElement('pre');
+          pre.style.cssText = `
+            white-space: pre-wrap;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+          `;
+          pre.textContent = results;
+
+          const copyButton = document.createElement('button');
+          copyButton.textContent = 'Copy Results';
+          copyButton.style.cssText = `
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+          `;
+          copyButton.onclick = async () => {
+            try {
+              await navigator.clipboard.writeText(results);
+              copyButton.textContent = 'Copied!';
+              setTimeout(() => {
+                copyButton.textContent = 'Copy Results';
+              }, 2000);
+            } catch (err) {
+              console.error('Failed to copy:', err);
+            }
+          };
+
+          const closeButton = document.createElement('button');
+          closeButton.textContent = 'Close';
+          closeButton.style.cssText = `
+            background: #666;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+          `;
+          closeButton.onclick = () => {
+            document.body.removeChild(modalDiv);
+          };
+
+          modalContent.appendChild(copyButton);
+          modalContent.appendChild(pre);
+          modalContent.appendChild(closeButton);
+          modalDiv.appendChild(modalContent);
+          document.body.appendChild(modalDiv);
         } catch (error) {
           alert(`Test Failed: ${error.message}`);
         }
