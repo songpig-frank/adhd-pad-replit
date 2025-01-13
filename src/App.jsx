@@ -87,6 +87,20 @@ function HomeScreen() {
           const testText = "This is a test task created at " + new Date().toLocaleString();
           const aiResult = await generateTitleAndSummary(testText);
           
+          // Create a new task with the test results
+          const newTask = {
+            julianId: generateJulianId(),
+            title: aiResult?.title || 'Test Task',
+            description: aiResult?.summary || 'Test Summary',
+            text: testText,
+            completed: false,
+            urgent: false,
+            createdAt: new Date().toLocaleString()
+          };
+
+          // Add the task to Firestore
+          await addDoc(collection(db, 'tasks'), newTask);
+
           const results = 
             `Test Results\n` +
             `------------\n` +
@@ -95,7 +109,8 @@ function HomeScreen() {
             `DeepSeek: ${deepseekResult.success ? 'PASSED' : 'FAILED'}\n\n` +
             `Task Generation:\n` +
             `Title: ${aiResult?.title || 'No title generated'}\n` +
-            `Summary: ${aiResult?.summary || 'No summary generated'}\n`;
+            `Summary: ${aiResult?.summary || 'No summary generated'}\n` + 
+            `\nTask created and saved to database.`;
 
           const modalDiv = document.createElement('div');
           modalDiv.style.cssText = `
