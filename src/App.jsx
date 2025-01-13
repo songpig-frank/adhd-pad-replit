@@ -21,7 +21,7 @@ function HomeScreen() {
                  now.getSeconds().toString().padStart(2, '0');
     return `${year}${day.toString().padStart(3, '0')}-${time}-${random}`;
   };
-  
+
   const runComprehensiveTest = async () => {
     try {
       const aiService = await import('./ai-service');
@@ -32,7 +32,7 @@ function HomeScreen() {
 
       const testText = "This is a test task created at " + new Date().toLocaleString();
       const aiResult = await generateTitleAndSummary(testText);
-      
+
       const results = 
         `Test Results\n` +
         `------------\n` +
@@ -41,7 +41,9 @@ function HomeScreen() {
         `DeepSeek: ${deepseekResult.success ? 'PASSED' : 'FAILED'}\n\n` +
         `Task Generation:\n` +
         `Title: ${aiResult?.title || 'No title generated'}\n` +
-        `Summary: ${aiResult?.summary || 'No summary generated'}\n`;
+        `Summary: ${aiResult?.summary || 'No summary generated'}\n` +
+        `Julian ID: ${generateJulianId()}\n` +
+        `Timestamp: ${new Date().toLocaleString()}\n`;
 
       alert(results);
     } catch (error) {
@@ -100,7 +102,7 @@ function HomeScreen() {
 
           const testText = "This is a test task created at " + new Date().toLocaleString();
           const aiResult = await generateTitleAndSummary(testText);
-          
+
           // Create a new task with the test results
           const newTask = {
             julianId: generateJulianId(),
@@ -648,7 +650,7 @@ function TaskListScreen() {
   };
 
   const [isProcessing, setIsProcessing] = React.useState(false);
-  
+
   const runComprehensiveTest = async () => {
     try {
       // Test AI connections
@@ -661,7 +663,7 @@ function TaskListScreen() {
       // Generate test task
       const testText = "This is a test task created at " + new Date().toLocaleString();
       const aiResult = await generateTitleAndSummary(testText);
-      
+
       const results = 
         `Test Results\n` +
         `------------\n` +
@@ -670,7 +672,9 @@ function TaskListScreen() {
         `DeepSeek: ${deepseekResult.success ? 'PASSED' : 'FAILED'}\n\n` +
         `Task Generation:\n` +
         `Title: ${aiResult?.title || 'No title generated'}\n` +
-        `Summary: ${aiResult?.summary || 'No summary generated'}\n`;
+        `Summary: ${aiResult?.summary || 'No summary generated'}\n` +
+        `Julian ID: ${generateJulianId()}\n` +
+        `Timestamp: ${new Date().toLocaleString()}\n`;
 
       alert(results);
     } catch (error) {
