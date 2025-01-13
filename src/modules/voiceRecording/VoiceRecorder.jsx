@@ -170,10 +170,12 @@ export const VoiceRecorder = () => {
     <div className="voice-recorder">
       <div className="recorder-container">
         {error && <div className="error-message">{error}</div>}
-        <div className="audio-settings" style={{display: 'block'}}>
-          <label>
-            <input 
-              type="checkbox" 
+        <div className="audio-settings">
+          <div className="settings-option">
+            <label className="checkbox-label">
+              <input 
+                type="checkbox"
+                className="settings-checkbox" 
               checked={saveAudio}
               onChange={(e) => {
                 setSaveAudio(e.target.checked);
@@ -184,6 +186,7 @@ export const VoiceRecorder = () => {
           </label>
           {saveAudio && (
             <select 
+              className="quality-select"
               value={audioQuality} 
               onChange={(e) => {
                 setAudioQuality(e.target.value);
