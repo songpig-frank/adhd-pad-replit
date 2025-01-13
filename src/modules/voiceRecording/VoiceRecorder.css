@@ -60,11 +60,38 @@
   border: 1px solid #ddd;
 }
 
-.audio-player {
+.audio-player-container {
+  width: 100%;
   margin: 15px 0;
-  padding: 10px;
+}
+
+.audio-player {
+  padding: 15px;
   background: #f5f5f5;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.audio-player audio {
+  width: 100%;
+  max-width: 300px;
+}
+
+.audio-timestamp {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.has-audio::before {
+  content: '🎵';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
 }
 
 .audio-controls {

@@ -792,7 +792,7 @@ function TaskListScreen() {
           {filteredTasks.map(task => (
             <div 
               key={task.id} 
-              className={`task-item ${task.completed ? 'completed' : ''} ${task.urgent ? 'urgent' : ''} ${task.audioUrl ? 'has-audio' : ''}`}
+              className={`task-item ${task.completed ? 'completed' : ''} ${task.urgent ? 'urgent' : ''} ${task.audioURL ? 'has-audio' : ''}`}
               onMouseLeave={(e) => {
                 const descriptionElement = e.currentTarget.querySelector('.task-description');
                 if (descriptionElement) {

@@ -195,9 +195,13 @@ export const VoiceRecorder = () => {
         >
           {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
-        <div className={`audio-player ${audioURL ? 'visible' : 'hidden'}`}>
-        <audio controls src={audioURL} />
-        {audioURL && <div className="audio-timestamp">New Recording</div>}
+        <div className="audio-player-container">
+        {audioURL && (
+          <div className="audio-player">
+            <audio controls src={audioURL} />
+            <div className="audio-timestamp">New Recording</div>
+          </div>
+        )}
       </div>
         <input type="text" placeholder="Task Title" value={title} onChange={e => setTitle(e.target.value)} />
         <textarea placeholder="Task Description" value={description} onChange={e => setDescription(e.target.value)} />
