@@ -7,6 +7,20 @@ import './App.css';
 
 function HomeScreen() {
   const [openAIStatus, setOpenAIStatus] = React.useState(null);
+
+  const generateJulianId = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const start = new Date(year, 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const day = Math.floor(diff / oneDay);
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    const time = now.getHours().toString().padStart(2, '0') + 
+                 now.getMinutes().toString().padStart(2, '0') +
+                 now.getSeconds().toString().padStart(2, '0');
+    return `${year}${day.toString().padStart(3, '0')}-${time}-${random}`;
+  };
   
   const runComprehensiveTest = async () => {
     try {
