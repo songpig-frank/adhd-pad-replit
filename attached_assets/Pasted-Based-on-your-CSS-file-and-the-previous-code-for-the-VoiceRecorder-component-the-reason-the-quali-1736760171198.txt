@@ -1,0 +1,99 @@
+Based on your CSS file and the previous code for the `VoiceRecorder` component, the reason the quality settings and saving options do not appear **next to** the media player lies in **how the layout is structured in the CSS** and the `VoiceRecorder` component's DOM structure. Let’s analyze the issue in detail:
+
+---
+
+### Key Issues:
+1. **Layout Direction for `audio-settings` and `audio-player-container`:**
+   - The `audio-settings` section and the `audio-player-container` are wrapped in **different containers** within the `VoiceRecorder` component. Both are flex containers with a `flex-direction: column` style applied. This causes them to stack vertically, rather than aligning side-by-side.
+   - The CSS for `audio-settings` explicitly sets:
+     ```css
+     .audio-settings {
+       display: flex;
+       flex-direction: column;
+     }
+     ```
+     Similarly, the `.recorder-container` ensures a vertical flow:
+     ```css
+     .recorder-container {
+       flex-direction: column;
+     }
+     ```
+
+2. **Component Hierarchy in the DOM:**
+   - In the `VoiceRecorder` component, the `audio-settings` and `audio-player-container` are **separate sibling elements**. For them to appear side-by-side, they need to share a parent container with a horizontal layout (`display: flex; flex-direction: row;`).
+
+---
+
+### Suggested Fix:
+
+To make the quality and saving options appear **next to** the media player:
+
+1. **Wrap `audio-settings` and `audio-player-container` in a Shared Flex Container:**
+   Update the JSX in the `VoiceRecorder` component to group the `audio-settings` and `audio-player-container` inside a flex container:
+
+   ```jsx
+   <div className="settings-and-player">
+     <div className="audio-settings">
+       {/* Quality and saving options */}
+     </div>
+     <div className="audio-player-container">
+       {/* Media player */}
+       {audioURL && (
+         <div className="audio-player">
+           <audio controls src={audioURL} />
+         </div>
+       )}
+     </div>
+   </div>
+   ```
+
+2. **Add CSS for the Flex Container:**
+   Define a `.settings-and-player` class to align the children horizontally:
+   ```css
+   .settings-and-player {
+     display: flex;
+     flex-direction: row;
+     gap: 20px;
+     align-items: center; /* Vertically align items */
+     justify-content: space-between; /* Distribute space */
+     width: 100%;
+   }
+
+   .audio-settings {
+     flex: 1; /* Allow audio-settings to take up space proportionally */
+   }
+
+   .audio-player-container {
+     flex: 1; /* Same for audio-player-container */
+   }
+   ```
+
+3. **Test for Smaller Screens (Optional):**
+   Use media queries to ensure the layout is responsive. On smaller screens, revert the layout to a column stack:
+   ```css
+   @media (max-width: 768px) {
+     .settings-and-player {
+       flex-direction: column;
+       gap: 10px;
+     }
+   }
+   ```
+
+---
+
+### Updated Layout in Practice:
+
+#### Before:
+The `audio-settings` and `audio-player-container` are stacked vertically due to their column layout.
+
+#### After:
+With the above changes, the `audio-settings` and `audio-player-container` will now be side-by-side, making the quality and saving options appear next to the media player.
+
+---
+
+### Debugging Checklist:
+- Ensure that the `settings-and-player` wrapper is implemented in both the JSX and CSS.
+- Check for any conflicting styles from parent containers (`.recorder-container` or `.voice-recorder`).
+- Test the responsiveness with different screen sizes.
+
+Would you like me to refine or simulate a full code integration of these updates?
