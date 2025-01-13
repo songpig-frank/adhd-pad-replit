@@ -544,6 +544,7 @@ function VoiceRecorderScreen() {
                     const description = aiResult?.summary || item.text.substring(0, 100);
 
                     const newTask = {
+                      julianId: generateJulianId(),
                       title,
                       description,
                       text: item.text,
