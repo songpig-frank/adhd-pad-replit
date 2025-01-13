@@ -822,12 +822,13 @@ function TaskListScreen() {
               <div className="task-content">
                 <div className="task-subtitle-container">
                   <div className="task-title">{task.title}</div>
-                  {task.audioUrl && (
-                    <div className="task-audio">
-                      <audio controls src={task.audioUrl} />
-                    </div>
-                  )}
                 </div>
+                {task.audioUrl && (
+                  <div className="task-audio-container">
+                    <span className="audio-icon">🎵</span>
+                    <audio controls src={task.audioUrl} className="task-audio-player" />
+                  </div>
+                )}
                 <div className="task-description">{task.description}</div>
               </div>
               <div className="task-content">
