@@ -97,6 +97,33 @@ export const VoiceRecorder = () => {
       <div className="recorder-container">
         {error && <div className="error-message">{error}</div>}
         <div className="audio-settings">
+          <label className="checkbox-label">
+            <input 
+              type="checkbox"
+              className="settings-checkbox" 
+              checked={saveAudio}
+              onChange={(e) => {
+                setSaveAudio(e.target.checked);
+                localStorage.setItem('saveAudio', e.target.checked);
+              }}
+            />
+            Save Audio Recording
+          </label>
+          {saveAudio && (
+            <select 
+              className="quality-select"
+              value={audioQuality} 
+              onChange={(e) => {
+                setAudioQuality(e.target.value);
+                localStorage.setItem('audioQuality', e.target.value);
+              }}
+            >
+              <option value="low">Low Quality (Smaller Size)</option>
+              <option value="high">High Quality</option>
+            </select>
+          )}
+        </div>
+        <div className="audio-settings">
           <div className="settings-option">
             <label className="checkbox-label">
               <input 
