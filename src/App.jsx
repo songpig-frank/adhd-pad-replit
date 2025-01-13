@@ -7,7 +7,7 @@ import './App.css';
 
 function HomeScreen() {
   const [openAIStatus, setOpenAIStatus] = React.useState(null);
-
+  
   const generateJulianId = () => {
     const now = new Date();
     const year = now.getFullYear();

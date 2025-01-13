@@ -16,15 +16,9 @@ if (!firebaseConfig.apiKey) {
   console.error("Firebase configuration is missing. Please check your environment variables in Secrets.");
 }
 
-let db;
-
-try {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-  console.log("Firebase connection successful!");
-} catch (error) {
-  console.error("Error initializing Firebase:", error);
-}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+console.log("Firebase connection successful!");
 
 const testConnection = async () => {
   try {
