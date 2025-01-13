@@ -124,19 +124,20 @@ export const VoiceRecorder = () => {
               </select>
             )}
           </div>
+          <div className="audio-player-container">
+            {audioURL && (
+              <div className="audio-player">
+                <audio controls src={audioURL} />
+              </div>
+            )}
+          </div>
+        </div>
         <button 
           className={`record-button ${isRecording ? 'recording' : ''}`}
           onClick={isRecording ? stopRecording : startRecording}
         >
           {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
-        <div className="audio-player-container">
-          {audioURL && (
-            <div className="audio-player">
-              <audio controls src={audioURL} />
-            </div>
-          )}
-        </div>
         <input 
           type="text" 
           placeholder="Task Title" 
