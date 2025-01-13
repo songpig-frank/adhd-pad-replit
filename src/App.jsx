@@ -792,7 +792,7 @@ function TaskListScreen() {
           {filteredTasks.map(task => (
             <div 
               key={task.id} 
-              className={`task-item ${task.completed ? 'completed' : ''} ${task.urgent ? 'urgent' : ''}`}
+              className={`task-item ${task.completed ? 'completed' : ''} ${task.urgent ? 'urgent' : ''} ${task.audioUrl ? 'has-audio' : ''}`}
               onMouseLeave={(e) => {
                 const descriptionElement = e.currentTarget.querySelector('.task-description');
                 if (descriptionElement) {
@@ -822,6 +822,11 @@ function TaskListScreen() {
               <div className="task-content">
                 <div className="task-subtitle-container">
                   <div className="task-title">{task.title}</div>
+                  {task.audioUrl && (
+                    <div className="task-audio">
+                      <audio controls src={task.audioUrl} />
+                    </div>
+                  )}
                 </div>
                 <div className="task-description">{task.description}</div>
               </div>

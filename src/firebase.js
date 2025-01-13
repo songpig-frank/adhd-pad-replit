@@ -1,6 +1,7 @@
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -40,4 +41,5 @@ const testConnection = async () => {
 
 testConnection();
 
-export { db };
+const storage = getStorage(app);
+export { db, storage };

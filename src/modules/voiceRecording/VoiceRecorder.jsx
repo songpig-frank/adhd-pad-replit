@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import './VoiceRecorder.css';
-import { db } from '../../firebase'; // Assuming firebase setup
+import { db, storage } from '../../firebase'; // Assuming firebase setup
 import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 
 export const VoiceRecorder = () => {
@@ -142,6 +143,11 @@ export const VoiceRecorder = () => {
 
     // Add to tasks collection
     await addDoc(collection(db, 'tasks'), taskData);
+
+    //Upload audio to Firebase Storage
+    const storageRef = ref(storage, `audio/${julianId}.wav`);
+    await uploadBytes(storageRef, audioBlob);
+    const audioURL = await getDownloadURL(storageRef);
 
     setTranscribedText('');
     setAudioURL('');
