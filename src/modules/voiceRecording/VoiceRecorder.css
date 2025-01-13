@@ -39,6 +39,28 @@
   text-align: center;
 }
 
+.audio-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.audio-settings label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.audio-settings select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
 .audio-player {
   margin-top: 20px;
   width: 100%;

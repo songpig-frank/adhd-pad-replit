@@ -8,6 +8,8 @@ export const VoiceRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState('');
   const [error, setError] = useState('');
+  const [saveAudio, setSaveAudio] = useState(localStorage.getItem('saveAudio') === 'true');
+  const [audioQuality, setAudioQuality] = useState(localStorage.getItem('audioQuality') || 'low');
   const [transcribedText, setTranscribedText] = useState(''); // Added state for transcription
   const [title, setTitle] = useState(''); // Added state for task title
   const [description, setDescription] = useState(''); // Added state for task description
@@ -64,7 +66,10 @@ export const VoiceRecorder = () => {
       mediaRecorder.current.stop();
       setIsRecording(false);
       mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
-      const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+      let audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+      if (saveAudio) {
+        audioBlob = await compressAudio(audioBlob);
+      }
       const filename = `${julianId}.wav`;
       const url = URL.createObjectURL(audioBlob);
       console.log('Saving audio with Julian ID:', julianId, 'and filename:', filename);
@@ -77,6 +82,45 @@ export const VoiceRecorder = () => {
         audioURL: url //add audio url to state
       }));
     }
+  };
+
+  const compressAudio = async (audioBlob) => {
+    // Create low quality audio context
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const sampleRate = audioQuality === 'low' ? 8000 : 44100; // 8kHz for low quality
+
+    // Convert blob to array buffer
+    const arrayBuffer = await audioBlob.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+    // Create offline context for processing
+    const offlineContext = new OfflineAudioContext(
+      1, // mono
+      audioBuffer.duration * sampleRate,
+      sampleRate
+    );
+
+    const source = offlineContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(offlineContext.destination);
+    source.start();
+
+    // Render compressed audio
+    const renderedBuffer = await offlineContext.startRendering();
+
+    // Convert to WAV
+    const wavBlob = await new Promise(resolve => {
+      const length = renderedBuffer.length;
+      const data = new Float32Array(length);
+      renderedBuffer.copyFromChannel(data, 0);
+
+      const wav = new Blob([
+        new Int16Array(data.map(n => n * 0x7fff))
+      ], { type: 'audio/wav' });
+      resolve(wav);
+    });
+
+    return wavBlob;
   };
 
   const handleSubmitTask = async () => {
@@ -116,6 +160,31 @@ export const VoiceRecorder = () => {
     <div className="voice-recorder">
       <div className="recorder-container">
         {error && <div className="error-message">{error}</div>}
+        <div className="audio-settings">
+          <label>
+            <input 
+              type="checkbox" 
+              checked={saveAudio}
+              onChange={(e) => {
+                setSaveAudio(e.target.checked);
+                localStorage.setItem('saveAudio', e.target.checked);
+              }}
+            />
+            Save Audio Recording
+          </label>
+          {saveAudio && (
+            <select 
+              value={audioQuality} 
+              onChange={(e) => {
+                setAudioQuality(e.target.value);
+                localStorage.setItem('audioQuality', e.target.value);
+              }}
+            >
+              <option value="low">Low Quality (Smaller Size)</option>
+              <option value="high">High Quality</option>
+            </select>
+          )}
+        </div>
         <button 
           className={`record-button ${isRecording ? 'recording' : ''}`}
           onClick={isRecording ? stopRecording : startRecording}
