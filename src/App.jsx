@@ -827,6 +827,9 @@ function TaskListScreen() {
                   <div className="task-audio-container">
                     <span className="audio-icon">🔊</span>
                     <audio controls src={task.audioUrl} className="task-audio-player" />
+                    <div className="audio-info">
+                      {task.audioQuality && <span className="audio-quality">{task.audioQuality} quality</span>}
+                    </div>
                   </div>
                 )}
                 <div className="task-description">{task.description}</div>

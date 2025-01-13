@@ -170,7 +170,7 @@ export const VoiceRecorder = () => {
     <div className="voice-recorder">
       <div className="recorder-container">
         {error && <div className="error-message">{error}</div>}
-        <div className="audio-settings">
+        <div className="audio-settings" style={{display: 'block'}}>
           <label>
             <input 
               type="checkbox" 
