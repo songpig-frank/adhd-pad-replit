@@ -207,3 +207,27 @@
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
+.settings-and-player {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.audio-settings {
+  flex: 1;
+}
+
+.audio-player-container {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .settings-and-player {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
