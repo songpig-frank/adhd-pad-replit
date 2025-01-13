@@ -49,6 +49,9 @@ function HomeScreen() {
       <div className="domain-name">ADHDPad.com</div>
       <h1 className="title">Turn Your Ideas into Action</h1>
       <p className="subtitle">Capture, organize, and complete tasks with ADHD Pad</p>
+      <button onClick={runComprehensiveTest} className="test-ai-button">
+        Run Complete System Test
+      </button>
       <button onClick={async () => {
         try {
           const aiService = await import('./ai-service');
@@ -485,6 +488,35 @@ function TaskListScreen() {
   };
 
   const [isProcessing, setIsProcessing] = React.useState(false);
+  
+  const runComprehensiveTest = async () => {
+    try {
+      // Test AI connections
+      const aiService = await import('./ai-service');
+      const [openaiResult, deepseekResult] = await Promise.all([
+        aiService.testOpenAIConnection(),
+        aiService.testDeepSeekConnection()
+      ]);
+
+      // Generate test task
+      const testText = "This is a test task created at " + new Date().toLocaleString();
+      const aiResult = await generateTitleAndSummary(testText);
+      
+      const results = 
+        `Test Results\n` +
+        `------------\n` +
+        `AI Models:\n` +
+        `OpenAI: ${openaiResult.success ? 'PASSED' : 'FAILED'}\n` +
+        `DeepSeek: ${deepseekResult.success ? 'PASSED' : 'FAILED'}\n\n` +
+        `Task Generation:\n` +
+        `Title: ${aiResult?.title || 'No title generated'}\n` +
+        `Summary: ${aiResult?.summary || 'No summary generated'}\n`;
+
+      alert(results);
+    } catch (error) {
+      alert(`Test Failed: ${error.message}`);
+    }
+  });
 
   const addTask = async (e) => {
     e.preventDefault();
